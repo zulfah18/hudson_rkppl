@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui"
+      >
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <b:container>
+            <b:row>
+                <b:navBar><center><h2>LELANG</h2></center></b:navBar>
+                <h:form>       
+                    <p>Welcome, #{loginbean.uname}</p>
+                    <p:commandButton action="#{loginbean.logout()}" value="Logout"  ajax="false"></p:commandButton>
+                </h:form>
+            </b:row>
+        <b:row>
+            <b:column col-lg="4">
+                <center><h4>Input Lelang</h4></center>
+                <hr/>
+                
+                <p:inputText placeholder="Nama Lelang" size="50"/>
+                <br/>  <br/>
+                <p:inputText placeholder="Barang" size="50"/>
+                <br/>  <br/>
+                <p:inputText placeholder="Jumlah" size="50"/>
+                <br/>  <br/>
+                <p:calendar placeholder="Batas Lelang" size="50"/>
+                <h5>Deskripsi</h5>
+                <p:inputTextarea scrollHeight="8" cols="50"/>
+                <br/> <br/>
+                <p:button value="SUBMIT"/>
+            </b:column>
+            <b:column col-lg="8" >
+                <center><h4>Daftar Lelang</h4></center>
+                <hr/>
+                <p:dataTable value="#{datalelang.tampilData}" var="dlt">
+
+                    <p:column headerText="Nama Toko" >
+                        <center><p:outputLabel value="#{dlt.namaToko}" /></center>
+                    </p:column>
+
+                    <p:column headerText="Pengaju"  >
+                        <center><p:outputLabel value="#{dlt.pengaju}"/></center>
+                    </p:column>
+                    
+                    <p:column headerText="Jumlah">
+                        <center><p:outputLabel value="#{dlt.jumlahAJuan}"/></center>
+                    </p:column>    
+                        
+                    <p:column headerText="Deskripsi">
+                        <p:outputLabel value="#{dlt.deskripsi}"/>
+                    </p:column>
+                        <p:commandLink update=":carDetail" oncomplete="PF('carDialog').show()" title="View Detail">
+                            <f:attribute name="id" value="#{dlt.id_lelang}}" />
+                            <f:setPropertyActionListener value="#{dlt.id_lelang}" target="#{datalelang.getTampilDataById}" />
+                        </p:commandLink>
+                    </p:column>
+                    
+                </p:dataTable>
+            </b:column>
+            
+            <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty datalelang.getTampilDataById}" columnClasses="label,value">
+              
+                <h:outputText value="Nama Toko" />
+                <h:outputText value="#{dlt.namaToko}" />
+ 
+                <h:outputText value="Pengaju" />
+                <h:outputText value="#{dlt.pengaju}" />
+ 
+                <h:outputText value="Jumlah Ajuan" />
+                <h:outputText value="#{dlt.jumlahAJuan}"/>
+ 
+                <h:outputText value="Deskripsi" />
+                <h:outputText value="$#{dlt.deskripsi}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog>
+        
+        </b:row>
+        </b:container>
+    </h:body>
+</html>
+
+
