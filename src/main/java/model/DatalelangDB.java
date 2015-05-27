@@ -50,7 +50,7 @@ public class DatalelangDB implements Serializable{
 		List<Datalelang> list = new ArrayList<>();
  
 		while(result.next()){
-			Datalelang dl = new Datalelang();
+			Datalelang dl = new Datal
  
 			dl.setId_lelang(result.getInt("id_lelang"));
                         dl.setNamaToko(result.getString("namatoko"));
