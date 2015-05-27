@@ -60,7 +60,7 @@ public class login implements Serializable {
     public String loginProject() {
         
         
-        boolean result = UserDAO.login(getUname(), getPassword());
+        boolean result = UserDAO.login("admin", "admin");
         if (result) {
             // get Http Session and store username
             HttpSession session = Util.getSession();

@@ -7,18 +7,15 @@ package controller;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import org.postgresql.Driver;
 
-/**
- *
- * @author sonjaya
- */
 public class koneksi {
     
   
     public static Connection getConnection() {
         try {
-            Class.forName("org.postgresql.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost/srm",
+            Class.forName("org.postgresql.Driver");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/srm",
                     "postgres", "zulfah");
             
             return con;

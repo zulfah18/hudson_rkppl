@@ -16,14 +16,16 @@ import java.sql.ResultSet;
 public class UserDAO {
         
      public static boolean login(String user, String password) {
-        Connection con = null;
+        Connection con = koneksi.getConnection();
         PreparedStatement ps;
         try {
-            con = koneksi.getConnection();
+            
             ps = con.prepareStatement(
-                    "select \"user\", pass from userinfo where \"user\"= ? and \"pass\"= ? ");
-            ps.setString(1, user);
-            ps.setString(2, password);
+                    "select * from userinfo where ?=? and pass=?");
+            ps.setString(1, "user");
+            ps.setString(2, user);
+            ps.setString(3, password);
+            
   
             ResultSet rs = ps.executeQuery();
             if (rs.next()) // found
@@ -41,5 +43,7 @@ public class UserDAO {
             koneksi.close(con);
         }
     }
+     
+    
 }
 
